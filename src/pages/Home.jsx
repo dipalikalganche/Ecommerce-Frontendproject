@@ -14,7 +14,7 @@ function Home() {
         }}
       >
         <div>
-          <h1>🛍️ Clothing Store</h1>
+          <h1>🛍️ Fashion Store</h1>
           <p>Welcome to our ecommerce clothing store</p>
         </div>
 
