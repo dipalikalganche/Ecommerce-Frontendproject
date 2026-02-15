@@ -254,7 +254,25 @@ const styles = {
     alignItems: "center",
   },
   price: { fontWeight: "bold", fontSize: "20px", color: "#333" },
-
+  select: {
+    padding: "10px 16px",
+    borderRadius: "8px",
+    border: "1px solid #ddd",
+    backgroundColor: "#fff",
+    fontSize: "14px",
+    fontWeight: "500",
+    color: "#333",
+    cursor: "pointer",
+    outline: "none",
+    boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
+    transition: "all 0.3s ease",
+    appearance: "none", // Removes default OS styling
+    backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 10px center",
+    backgroundSize: "16px",
+    paddingRight: "40px", // Space for the custom arrow
+  },
   button: {
     width: "100%",
     padding: "12px",
