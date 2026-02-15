@@ -1,16 +1,15 @@
-# React + Vite
+🛒 TrendSetter E-CommerceA modern, full-stack E-Commerce application built with React, Redux Toolkit, and Node.js. This project features a dynamic product catalog, category-based filtering, and a seamless "Add to Cart" experience.✨ FeaturesDynamic Product Listing: Fetches real-time data from a Node.js/MongoDB backend.Smart Filtering: Filter products by category (Shirt, Jeans, Hoodies, etc.) with a custom-styled UI.Redux State Management: Global cart management using Redux Toolkit.Admin Product Creation: specialized form with image upload support and form validation.Responsive Design: Modern Flexbox/Grid layout that adapts to different screen sizes.Base64 Image Handling: Support for buffer-based image rendering from the database.🚀 Tech StackFrontend:React.js (Vite)Redux Toolkit (State Management)Axios (API Calls)Material UI (Snackbars & Alerts)Backend:Node.js & ExpressMongoDB (Database)Multer (Image Upload Processing)🛠️ Installation & Setup1. Clone the repositoryBashgit clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name 2. Frontend SetupBash# Navigate to frontend folder (if separate)
+npm install
+npm run dev 3. Backend SetupBash# Navigate to server folder
+npm install
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Ensure your MongoDB is running and .env is configured
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+npm start
+📸 ScreenshotsProduct Catalog & FiltersProduct Creation Form📂 Project StructurePlaintextsrc/
+├── components/ # UI Components (ProductList, CreateProduct)
+├── redux/ # Redux Slices (cartSlice.js, store.js)
+├── assets/ # Global styles and images
+└── App.jsx # Main Routing & Entry point
+📝 API Endpoints (Local)MethodEndpointDescriptionGET/api/v1/productFetch all productsPOST/api/v1/product/createCreate a new product (Multipart/form-data)
