@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { addToCart } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
+
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState(""); // State for filtering
   const dispatch = useDispatch();
+
   // fetch products
   useEffect(() => {
     fetchProducts();
@@ -19,16 +22,16 @@ function ProductList() {
     }
   };
 
-  // convert buffer image → base64 OR return URL
+  // Filter Logic: If categoryFilter is empty, show all. Otherwise, match category.
+  const filteredProducts = products.filter((product) => {
+    if (categoryFilter === "") return true;
+    return product.category?.toLowerCase() === categoryFilter.toLowerCase();
+  });
+
   const getImageSrc = (image) => {
     if (!image) return null;
+    if (typeof image === "string" && image.trim() !== "") return image;
 
-    // if URL image
-    if (typeof image === "string" && image.trim() !== "") {
-      return image;
-    }
-
-    // if MongoDB buffer image
     if (image?.data?.data?.length) {
       const base64String = btoa(
         new Uint8Array(image.data.data).reduce(
@@ -36,10 +39,8 @@ function ProductList() {
           "",
         ),
       );
-
       return `data:${image.contentType};base64,${base64String}`;
     }
-
     return null;
   };
 
@@ -47,8 +48,33 @@ function ProductList() {
     <div style={styles.container}>
       <h2 style={styles.title}>Our Products</h2>
 
+      {/* --- FILTER DROPDOWN --- */}
+      <div style={styles.filterWrapper}>
+        <label style={{ fontWeight: "bold", marginRight: "10px" }}>
+          Filter By Category:
+        </label>
+        <select
+          style={styles.select}
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+        >
+          <option value="">All Categories</option>
+          <option value="shirt">Shirt</option>
+          <option value="t-shirt">T-Shirt</option>
+          <option value="kurti">Kurti</option>
+          <option value="hoodie">Hoodie</option>
+          <option value="pant">Pant</option>
+          <option value="jeans">Jeans</option>
+          <option value="shorts">Shorts</option>
+          <option value="skirt">Skirt</option>
+          <option value="jacket">Jacket</option>
+          <option value="dress">Dress</option>
+        </select>
+      </div>
+
       <div style={styles.grid}>
-        {products.map((product) => {
+        {/* Use filteredProducts instead of products */}
+        {filteredProducts.map((product) => {
           const imageSrc = getImageSrc(product.image);
 
           return (
@@ -87,12 +113,10 @@ function ProductList() {
               <p>
                 <b>Size:</b> {product.size?.join(", ") || "N/A"}
               </p>
-
               <p>
                 <b>Stock:</b> {product.stock}
               </p>
 
-              {/* <button style={styles.button}>Add to Cart 🛒</button> */}
               <button
                 style={styles.button}
                 onClick={() =>
@@ -113,41 +137,54 @@ function ProductList() {
           );
         })}
       </div>
+
+      {/* Show message if no products match the filter */}
+      {filteredProducts.length === 0 && (
+        <div style={{ textAlign: "center", marginTop: "20px", color: "#888" }}>
+          No products found for this category.
+        </div>
+      )}
     </div>
   );
 }
 
 export default ProductList;
 
-/* ---------- STYLES ---------- */
+/* ---------- UPDATED STYLES ---------- */
 
 const styles = {
   container: {
     padding: "40px",
     fontFamily: "Arial",
   },
-
   title: {
+    textAlign: "center",
+    marginBottom: "10px",
+  },
+  filterWrapper: {
     textAlign: "center",
     marginBottom: "30px",
   },
-
-  // 4 cards per row
+  select: {
+    padding: "10px",
+    borderRadius: "5px",
+    border: "1px solid #ddd",
+    fontSize: "16px",
+    cursor: "pointer",
+    outline: "none",
+  },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(4, 1fr)",
     gap: "25px",
   },
-
   card: {
     padding: "20px",
     borderRadius: "12px",
     boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
     background: "#fff",
     textAlign: "center",
-    transition: "0.3s",
   },
-
   image: {
     width: "100%",
     height: "220px",
@@ -156,7 +193,6 @@ const styles = {
     marginBottom: "15px",
     background: "#f5f5f5",
   },
-
   noImage: {
     width: "100%",
     height: "220px",
@@ -170,28 +206,26 @@ const styles = {
     fontSize: "14px",
     border: "1px dashed #ddd",
   },
-
   brand: {
     color: "#777",
     fontSize: "14px",
+    textTransform: "capitalize",
   },
-
   desc: {
     fontSize: "14px",
     color: "#555",
+    height: "40px",
+    overflow: "hidden",
   },
-
   priceRow: {
     display: "flex",
     justifyContent: "space-between",
     margin: "10px 0",
   },
-
   price: {
     fontWeight: "bold",
     fontSize: "18px",
   },
-
   button: {
     width: "100%",
     padding: "12px",
