@@ -10,14 +10,22 @@ const cartSlice = createSlice({
 
   reducers: {
     addToCart: (state, action) => {
-      const itemExist = state.cartItems.find(
-        (item) => item._id === action.payload._id,
+      const item = action.payload;
+
+      // check if item already exists
+      const existingItem = state.cartItems.find(
+        (product) => product._id === item._id,
       );
 
-      if (itemExist) {
-        itemExist.quantity += 1;
+      if (existingItem) {
+        // increase quantity instead of adding duplicate
+        existingItem.quantity += 1;
       } else {
-        state.cartItems.push({ ...action.payload, quantity: 1 });
+        // add new item
+        state.cartItems.push({
+          ...item,
+          quantity: 1,
+        });
       }
     },
 
@@ -28,18 +36,34 @@ const cartSlice = createSlice({
     },
 
     increaseQty: (state, action) => {
-      const item = state.cartItems.find((item) => item._id === action.payload);
+      const item = state.cartItems.find(
+        (product) => product._id === action.payload,
+      );
       if (item) item.quantity += 1;
     },
 
     decreaseQty: (state, action) => {
-      const item = state.cartItems.find((item) => item._id === action.payload);
-      if (item && item.quantity > 1) item.quantity -= 1;
+      const item = state.cartItems.find(
+        (product) => product._id === action.payload,
+      );
+
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
+      }
+    },
+
+    clearCart: (state) => {
+      state.cartItems = [];
     },
   },
 });
 
-export const { addToCart, removeFromCart, increaseQty, decreaseQty } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  increaseQty,
+  decreaseQty,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
