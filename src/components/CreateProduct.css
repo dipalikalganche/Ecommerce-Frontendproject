@@ -1,55 +1,111 @@
+/* Container Background */
 .create-product-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f5f5f5;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
 }
 
+/* Main Card */
 .create-product-card {
-  width: 400px;
+  width: 100%;
+  max-width: 500px;
   background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .create-product-card h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  font-weight: 700;
 }
 
-.create-product-card input {
+/* Form Layout */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Inputs, Selects, and Textarea */
+.create-product-card input, 
+.create-product-card select, 
+.create-product-card textarea {
   width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border: 1px solid #ddd;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   font-size: 14px;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Critical for padding issues */
 }
 
-.create-product-card input:focus {
+.create-product-card textarea {
+  height: 80px;
+  resize: none;
+}
+
+.create-product-card input:focus, 
+.create-product-card select:focus {
   outline: none;
-  border-color: black;
+  border-color: #000;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+}
+
+/* File Input Styling */
+.file-input-container {
+  margin: 20px 0;
+}
+
+.file-input-container label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #666;
 }
 
 .create-product-card input[type="file"] {
-  border: none;
+  border: 1px dashed #ccc;
+  background: #fdfdfd;
+  cursor: pointer;
 }
 
-.create-product-card button {
+/* Submit Button */
+.submit-btn {
   width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  background: black;
+  padding: 14px;
+  margin-top: 10px;
+  background: #000;
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform 0.2s ease, background 0.3s ease;
 }
 
-.create-product-card button:hover {
-  background: #333;
+.submit-btn:hover {
+  background: #222;
+  transform: translateY(-1px);
 }
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+

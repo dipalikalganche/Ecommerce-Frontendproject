@@ -26,7 +26,7 @@ function Register() {
 
       alert(res.data.message);
     } catch (error) {
-      console.log(error);
+      console.log(error);   
       alert("Registration failed");
     }
   };
