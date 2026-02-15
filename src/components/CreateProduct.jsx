@@ -42,11 +42,7 @@ function CreateProduct() {
         : product.size.split(",").map((s) => s.trim());
 
       Object.keys(product).forEach((key) => {
-        if (key === "size") {
-          formData.append(key, JSON.stringify(formattedSize));
-        } else {
-          formData.append(key, product[key]);
-        }
+        formData.append(key, product[key]);
       });
 
       formData.append("image", image);
@@ -56,13 +52,11 @@ function CreateProduct() {
         formData,
         { headers: { "Content-Type": "multipart/form-data" } },
       );
-
+      // Redirect after success
+      setTimeout(() => navigate("/"), 2000);
       setMessage("Product added successfully ✅");
       setSeverity("success");
       setOpen(true);
-
-      // Redirect after success
-      setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       setMessage("Error creating product ❌");
       setSeverity("error");
@@ -129,11 +123,15 @@ function CreateProduct() {
                 onChange={handleChange}
                 required
               >
-                <option value="">Select Category</option>
+                <option value="">All Categories</option>
                 <option value="shirt">Shirt</option>
                 <option value="t-shirt">T-Shirt</option>
+                <option value="kurti">Kurti</option>
                 <option value="hoodie">Hoodie</option>
+                <option value="pant">Pant</option>
                 <option value="jeans">Jeans</option>
+                <option value="shorts">Shorts</option>
+                <option value="skirt">Skirt</option>
                 <option value="jacket">Jacket</option>
                 <option value="dress">Dress</option>
               </select>

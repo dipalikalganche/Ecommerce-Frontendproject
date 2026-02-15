@@ -26,7 +26,7 @@ function Register() {
 
       alert(res.data.message);
     } catch (error) {
-      console.log(error);   
+      console.log(error);
       alert("Registration failed");
     }
   };
@@ -71,7 +71,7 @@ function Register() {
         <button type="submit">Create Account</button>
 
         <p>
-          Already have an account? <Link to="/">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </form>
     </div>
