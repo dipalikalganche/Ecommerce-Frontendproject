@@ -25,7 +25,59 @@ function Home() {
   //   },
   // ];
 
-  return <ProductList />;
+  const products = [];
+  return (
+    <div style={{ padding: "30px" }}>
+      {/* ⭐ HEADER SECTION */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <h1>🛍️ Clothing Store</h1>
+          <p>Welcome to our ecommerce clothing store</p>
+        </div>
+
+        {/* ADD PRODUCT BUTTON */}
+        <button
+          onClick={() => navigate("/create-product")}
+          style={{
+            padding: "10px 20px",
+            background: "black",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          + Add Product
+        </button>
+      </div>
+
+      {/* PRODUCTS */}
+      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
+        {products.map((item) => (
+          <div
+            key={item.id}
+            style={{
+              border: "1px solid #ddd",
+              padding: "15px",
+              borderRadius: "10px",
+            }}
+          >
+            <img src={item.img} width="150" alt={item.name} />
+            <h3>{item.name}</h3>
+            <p>{item.price}</p>
+            <button>Add to Cart</button>
+          </div>
+        ))}
+      </div>
+      <ProductList />
+    </div>
+  );
 }
 
 export default Home;
