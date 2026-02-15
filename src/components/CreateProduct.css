@@ -4,50 +4,52 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  background: #f4f7f6;
   padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Main Card */
 .create-product-card {
   width: 100%;
-  max-width: 550px;
+  max-width: 600px;
   background: white;
   padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .create-product-card h2 {
   text-align: center;
   margin-top: 0;
   margin-bottom: 30px;
-  font-family: 'Inter', sans-serif;
-  color: #111;
+  color: #1a1a1a;
   font-weight: 800;
-  letter-spacing: -0.5px;
+  font-size: 24px;
 }
 
 /* Labels */
 .input-label {
   display: block;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #888;
-  margin-bottom: 6px;
-  margin-left: 2px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
 }
 
 /* Form Layout */
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
 }
 
 /* Inputs, Selects, and Textarea */
@@ -55,71 +57,63 @@
 .create-product-card select, 
 .create-product-card textarea {
   width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #eee;
+  padding: 12px 16px;
+  border: 1.5px solid #eee;
   border-radius: 12px;
   font-size: 14px;
-  background-color: #f9f9f9;
-  transition: all 0.25s ease;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
   box-sizing: border-box;
 }
 
 .create-product-card textarea {
-  height: 100px;
+  height: 80px;
   resize: none;
 }
 
 .create-product-card input:focus, 
-.create-product-card select:focus {
+.create-product-card select:focus, 
+.create-product-card textarea:focus {
   outline: none;
-  border-color: #111;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  border-color: #000;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Image Preview Section */
-.file-upload-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+/* File Input */
+.file-input-container input[type="file"] {
+  border: 2px dashed #ddd;
+  padding: 20px;
+  cursor: pointer;
+  background: #fafafa;
+  text-align: center;
 }
 
-.image-preview-thumbnail {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 1px solid #eee;
-}
-
-.create-product-card input[type="file"] {
-  padding: 10px;
-  border: 2px dashed #eee;
-  background: #fff;
+.file-input-container input[type="file"]:hover {
+  background: #f0f0f0;
+  border-color: #bbb;
 }
 
 /* Submit Button */
 .submit-btn {
   width: 100%;
   padding: 16px;
-  margin-top: 15px;
-  background: #111;
+  margin-top: 20px;
+  background: #000;
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.submit-btn:hover:not(:disabled) {
-  background: #333;
+.submit-btn:hover {
+  background: #222;
   transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.submit-btn:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+.submit-btn:active {
+  transform: translateY(0);
 }

@@ -8,7 +8,6 @@ function ProductList() {
   const [categoryFilter, setCategoryFilter] = useState("");
   const dispatch = useDispatch();
 
-  // Fetch products from API
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -22,13 +21,11 @@ function ProductList() {
     }
   };
 
-  // Filter Logic
   const filteredProducts = products.filter((product) => {
     if (categoryFilter === "") return true;
     return product.category?.toLowerCase() === categoryFilter.toLowerCase();
   });
 
-  // Image processing logic
   const getImageSrc = (image) => {
     if (!image) return null;
     if (typeof image === "string" && image.trim() !== "") return image;
@@ -47,13 +44,10 @@ function ProductList() {
 
   return (
     <div style={styles.container}>
-      {/* --- HEADER SECTION (Title Center, Filter Right) --- */}
+      {/* --- HEADER SECTION --- */}
       <div style={styles.header}>
-        {/* Invisible spacer to keep title centered */}
         <div style={styles.spacer}></div>
-
         <h2 style={styles.title}>Our Products</h2>
-
         <div style={styles.filterWrapper}>
           <label style={styles.filterLabel}>Filter By Category:</label>
           <select
@@ -83,43 +77,45 @@ function ProductList() {
 
           return (
             <div key={product._id} style={styles.card}>
-              {imageSrc ? (
-                <>
-                  <img
-                    src={imageSrc}
-                    alt={product.name}
-                    style={styles.image}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                      e.target.nextSibling.style.display = "flex";
-                    }}
-                  />
-                  <div style={{ ...styles.noImage, display: "none" }}>
-                    Image not available
-                  </div>
-                </>
-              ) : (
-                <div style={styles.noImage}>Image not available</div>
-              )}
+              <div style={styles.contentWrapper}>
+                {imageSrc ? (
+                  <>
+                    <img
+                      src={imageSrc}
+                      alt={product.name}
+                      style={styles.image}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.display = "flex";
+                      }}
+                    />
+                    <div style={{ ...styles.noImage, display: "none" }}>
+                      Image not available
+                    </div>
+                  </>
+                ) : (
+                  <div style={styles.noImage}>Image not available</div>
+                )}
 
-              <h3>{product.name}</h3>
-              <p style={styles.brand}>{product.brand}</p>
-              <p style={styles.categoryTag}>{product.category}</p>
+                <h3 style={styles.productName}>{product.name}</h3>
+                <p style={styles.brand}>{product.brand}</p>
+                <p style={styles.categoryTag}>{product.category}</p>
+                <p style={styles.desc}>{product.description}</p>
 
-              <p style={styles.desc}>{product.description}</p>
+                <div style={styles.priceRow}>
+                  <span style={styles.price}>₹{product.price}</span>
+                  <span>⭐ {product.rating}</span>
+                </div>
 
-              <div style={styles.priceRow}>
-                <span style={styles.price}>₹{product.price}</span>
-                <span>⭐ {product.rating}</span>
+                <p style={styles.infoText}>
+                  <b>Size:</b> {product.size?.join(", ") || "N/A"}
+                </p>
+                <p style={styles.infoText}>
+                  <b>Stock:</b> {product.stock}
+                </p>
               </div>
 
-              <p>
-                <b>Size:</b> {product.size?.join(", ") || "N/A"}
-              </p>
-              <p>
-                <b>Stock:</b> {product.stock}
-              </p>
-
+              {/* BUTTON ALWAYS PINNED TO BOTTOM */}
               <button
                 style={styles.button}
                 onClick={() =>
@@ -141,7 +137,6 @@ function ProductList() {
         })}
       </div>
 
-      {/* Empty State Message */}
       {filteredProducts.length === 0 && (
         <div style={styles.emptyMessage}>
           No products found for this category.
@@ -168,9 +163,7 @@ const styles = {
     alignItems: "center",
     marginBottom: "40px",
   },
-  spacer: {
-    width: "300px", // Should roughly match the width of filterWrapper for perfect centering
-  },
+  spacer: { width: "300px" },
   title: {
     margin: 0,
     fontSize: "28px",
@@ -184,36 +177,42 @@ const styles = {
     alignItems: "center",
     justifyContent: "flex-end",
   },
-  filterLabel: {
-    fontWeight: "600",
-    marginRight: "10px",
-    fontSize: "14px",
-  },
+  filterLabel: { fontWeight: "600", marginRight: "10px", fontSize: "14px" },
   select: {
     padding: "8px 12px",
     borderRadius: "6px",
     border: "1px solid #ccc",
-    fontSize: "14px",
-    backgroundColor: "#fff",
-    cursor: "pointer",
     outline: "none",
   },
+
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(4, 1fr)",
     gap: "25px",
   },
+
   card: {
     padding: "20px",
     borderRadius: "12px",
     boxShadow: "0 4px 15px rgba(0,0,0,0.05)",
     background: "#fff",
     textAlign: "center",
-    transition: "transform 0.2s",
+    // FLEXBOX LOGIC FOR ALIGNMENT
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%", // Ensures all cards in a row have equal height
   },
+
+  contentWrapper: {
+    flex: 1, // This pushes everything above the button to take available space
+    display: "flex",
+    flexDirection: "column",
+  },
+
   image: {
     width: "100%",
-    height: "220px",
+    height: "200px",
     objectFit: "contain",
     borderRadius: "10px",
     marginBottom: "15px",
@@ -221,7 +220,7 @@ const styles = {
   },
   noImage: {
     width: "100%",
-    height: "220px",
+    height: "200px",
     borderRadius: "10px",
     marginBottom: "15px",
     display: "flex",
@@ -232,11 +231,8 @@ const styles = {
     fontSize: "14px",
     border: "1px dashed #ddd",
   },
-  brand: {
-    color: "#888",
-    fontSize: "13px",
-    marginBottom: "5px",
-  },
+  productName: { fontSize: "18px", margin: "10px 0 5px 0" },
+  brand: { color: "#888", fontSize: "13px", marginBottom: "2px" },
   categoryTag: {
     fontSize: "12px",
     color: "#007bff",
@@ -247,21 +243,18 @@ const styles = {
   desc: {
     fontSize: "14px",
     color: "#555",
-    height: "40px",
-    overflow: "hidden",
     marginBottom: "10px",
+    lineHeight: "1.4",
   },
+  infoText: { fontSize: "14px", margin: "2px 0" },
   priceRow: {
     display: "flex",
     justifyContent: "space-between",
-    margin: "15px 0",
+    margin: "10px 0",
     alignItems: "center",
   },
-  price: {
-    fontWeight: "bold",
-    fontSize: "20px",
-    color: "#333",
-  },
+  price: { fontWeight: "bold", fontSize: "20px", color: "#333" },
+
   button: {
     width: "100%",
     padding: "12px",
@@ -270,9 +263,8 @@ const styles = {
     color: "#fff",
     borderRadius: "8px",
     cursor: "pointer",
-    marginTop: "10px",
+    marginTop: "15px", // Spacing from the text above
     fontWeight: "600",
-    transition: "background 0.3s",
   },
   emptyMessage: {
     textAlign: "center",
