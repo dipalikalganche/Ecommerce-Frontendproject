@@ -30,10 +30,3 @@ A modern, full-stack E-Commerce application built with **React**, **Redux Toolki
 * **Multer** - Middleware for handling `multipart/form-data` uploads.
 
 ---
-
-## 🛠️ Installation & Setup
-
-### 1. Clone the repository
-```bash
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
