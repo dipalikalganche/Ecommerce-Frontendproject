@@ -6,7 +6,6 @@ function Layout() {
   return (
     <>
       <Header />
-
       {/* Body changes here */}
       <main style={{ minHeight: "80vh" }}>
         <Outlet />
